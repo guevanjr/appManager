@@ -2,11 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const redis = require('redis');
-const client = redis.createClient({
-    port      : 6379,               // replace with your port
-    host      : '162.214.149.184',        // replace with your hostanme or IP address
-    password  : 'Jr@bluehost2020',    // replace with your password    
-});
+const client = redis.createClient();
 
 app.use(bodyParser.raw({ type: function() {
     return true;
