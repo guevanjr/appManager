@@ -17,7 +17,22 @@ limit: '5mb'
 
 // Root handler
 app.get('/', function (req, res) {
-  res.send('Bem-vindo a AdeM!<br /><a href="https://github.com/guevanjr/appManager/#readme">Git README</a>');
+    client.send_command('select', [10], redis.print);
+var r = {};
+
+client.keys('*', function(err, keys) {
+  async.each(keys, function(key, callback) {
+    client.get(key, function(err, value) {
+      r[key] = value;
+      callback(err);
+    });
+  }, function() {
+    // when callback is finished
+    console.log(JSON.stringify(r));
+    client.quit();
+  });
+});
+  res.send('Bem-vindo a AdeM!<br /><a href="https://github.com/guevanjr/appManager/#readme">Git README</a><br>' + JSON.stringify(r));
 })
 
 app.post('/', function (req, res) {
