@@ -14,7 +14,7 @@ app.use(cors());
 const dashboardRoutes = require('./routes/dashboard.routes.js');
 
 // using as middleware
-app.use('/dashboard', smsRoutes);
+//app.use('/dashboard', smsRoutes);
 
 // Root handler
 app.get('/', function (req, res) {
@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/dashboard', function (req, res) {
-    client.send_command('select', [10], redis.print);
+    client.send_command('scan', [100], redis.print);
     var r = {};
 
     client.keys('*', function(err, keys) {
@@ -55,7 +55,7 @@ app.post('/dashboard', function (req, res) {
     }, function() {
             // when callback is finished
             console.log(JSON.stringify(r));
-            res.json(r)
+            res.json(JSON.stringify(r))
             client.quit();
         });
     });
