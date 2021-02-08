@@ -32,7 +32,7 @@ client.keys('*', function(err, keys) {
     client.quit();
   });
 });
-  res.send('Bem-vindo a AdeM!<br /><a href="https://github.com/guevanjr/appManager/#readme">Git README</a><br>' + JSON.stringify(r));
+  res.send('Bem-vindo ao Dashboard da AdeM!<br /><a href="https://github.com/guevanjr/appManager/#readme">Git README</a><br />' + JSON.stringify(r));
 })
 
 app.post('/', function (req, res) {
