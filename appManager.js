@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const redis = require('redis');
 const client = redis.createClient();
+const redisScan = require('node-redis-scan');
+const scanner = new redisScan(client);
 const cors = require('cors');
 const morgan = require ('morgan');
 const async = require('async');
@@ -43,7 +45,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/dashboard', function (req, res) {
-    client.send_command('scan', [100], redis.print);
+    /*client.send_command('scan', [100], redis.print);
     var r = {};
 
     client.keys('*', function(err, keys) {
@@ -55,10 +57,16 @@ app.post('/dashboard', function (req, res) {
     }, function() {
             // when callback is finished
             console.log(JSON.stringify(r));
-            res.json(JSON.stringify(r))
+            res.send(r);
             client.quit();
         });
     });
+    */
+   scanner.scan('*', async function(err, matchingKeys) {
+        if (err) throw(err);
+
+        res.send(matchingKeys);
+   })
 
 
 })
