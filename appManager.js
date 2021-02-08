@@ -5,6 +5,7 @@ const redis = require('redis');
 const client = redis.createClient();
 const cors = require('cors');
 const morgan = require ('morgan');
+const async = require('async');
 
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
